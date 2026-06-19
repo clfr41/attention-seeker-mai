@@ -1,0 +1,26 @@
+[plugin]
+enabled = false
+config_version = "2.0.0"
+version = "2.0.0"
+
+[scheduler]
+enabled = true
+start_time = "08:00"
+end_time = "23:00"
+check_interval = 30
+jitter = 3
+probability = 0.7
+min_interval_between_chats = 60
+isolation_time = 0
+
+[target]
+allowed_groups = []
+allowed_friends = ["12345678"]
+
+[log]
+verbose = true
+scheduler_log = true
+
+[intent]
+text = "群聊冷场了，主动找个话题聊聊"
+reason = "attention_proactive"

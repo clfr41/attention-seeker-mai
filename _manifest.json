@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "version": "2.0.0",
+  "name": "想要引起注意的麦麦",
+  "description": "冷场时通过 Maisaka Planner 主动找话题，基于人格、记忆、上下文自行决定是否回复",
+  "author": {
+    "name": "RIEZ-ON/clfr41",
+    "url": "https://github.com/clfr41"
+  },
+  "license": "GPL-v3.0-or-later",
+  "urls": {
+    "repository": "https://github.com/clfr41/attention-seeker-mai",
+    "homepage": "https://github.com/clfr41/attention-seeker-mai",
+    "issues": "https://github.com/clfr41/attention-seeker-mai/issues"
+  },
+  "host_application": {
+    "min_version": "1.0.0",
+    "max_version": "1.99.99"
+  },
+  "sdk": {
+    "min_version": "2.3.0",
+    "max_version": "2.99.99"
+  },
+  "dependencies": [],
+  "capabilities": [
+    "chat.get_stream_by_group_id",
+    "chat.get_stream_by_user_id",
+    "message.get_by_time_in_chat",
+    "config.get",
+    "send.text",
+    "maisaka.proactive.trigger"
+  ],
+  "i18n": {
+    "default_locale": "zh-CN",
+    "supported_locales": ["zh-CN"]
+  },
+  "id": "attention-seeker-mai"
+}
