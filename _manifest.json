@@ -7,7 +7,7 @@
     "name": "RIEZ-ON/clfr41",
     "url": "https://github.com/clfr41"
   },
-  "license": "GPL-v3.0-or-later",
+  "license": "AGPL-3.0-or-later",
   "urls": {
     "repository": "https://github.com/clfr41/attention-seeker-mai",
     "homepage": "https://github.com/clfr41/attention-seeker-mai",
@@ -27,7 +27,6 @@
     "chat.get_stream_by_user_id",
     "message.get_by_time_in_chat",
     "config.get",
-    "send.text",
     "maisaka.proactive.trigger"
   ],
   "i18n": {
