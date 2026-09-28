@@ -153,8 +153,20 @@ class LonelyMaiPlugin(MaiBotPlugin):
                 actual_minutes = base_interval + random.randint(-jitter, jitter) if jitter > 0 else base_interval
                 sleep_seconds = max(60, actual_minutes * 60)
 
+                # 目标流依赖宿主侧已建立的会话（chat_manager.sessions）；宿主启动早于会话
+                # 建立时 on_load 解析不到任何目标流且此后不再重试，调度器就会对空 _states
+                # 空转整个进程生命周期。这里补注册一次，仍未成功则改用短周期重试。
+                if not self._states:
+                    await self._init_target_streams()
+                    if not self._states:
+                        sleep_seconds = 60
+
                 self.ctx.logger.info(f"[调度器] 下次检查: +{sleep_seconds // 60}min")
                 await asyncio.sleep(sleep_seconds)
+
+                # 睡醒后再补一次：会话一旦建立即可立即开始检查，无需再等一个完整间隔。
+                if not self._states:
+                    await self._init_target_streams()
 
                 for target_id, state in list(self._states.items()):
                     if (target_id not in self.config.target.allowed_groups and
@@ -272,6 +284,13 @@ class LonelyMaiPlugin(MaiBotPlugin):
             if st.stream_id == stream_id:
                 target = tid
                 break
+        if not target:
+            # 同调度器：注册为空时先补注册一次再判断
+            await self._init_target_streams()
+            for tid, st in self._states.items():
+                if st.stream_id == stream_id:
+                    target = tid
+                    break
         if not target:
             return False, "当前会话未在白名单中", True
 
